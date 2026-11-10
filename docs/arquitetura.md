@@ -1,102 +1,115 @@
-Requisitos do Sistema
+Arquitetura do Sistema
 
-1. Identificação
+1. Objetivo
 
-Sistema: Gerenciador de Tarefas de Estudo
-Versão: 1.0
+Este documento apresenta a organização inicial do Gerenciador de Tarefas de Estudo.
 
-2. Problema
+A arquitetura foi propositalmente simplificada para facilitar o entendimento da relação entre projeto e implementação.
 
-Estudantes precisam controlar diferentes atividades acadêmicas.
+2. Visão geral
 
-Sem uma organização mínima, tarefas podem ser esquecidas, duplicadas ou realizadas fora do prazo.
+O sistema será composto por:
 
-O sistema proposto deverá fornecer uma forma simples de registrar e acompanhar tarefas de estudo.
++----------------------+
+|       Usuário        |
++----------+-----------+
+           |
+           v
++----------------------+
+|      Interface       |
+|     index.html       |
++----------+-----------+
+           |
+           v
++----------------------+
+|  Lógica da Aplicação |
+|       app.js         |
++----------+-----------+
+           |
+           v
++----------------------+
+|   Dados em memória   |
++----------------------+
 
-3. Usuário principal
+3. Interface
 
-O usuário principal é um estudante que deseja organizar suas atividades acadêmicas.
+Arquivo:
 
-4. Requisitos funcionais
+src/index.html
 
-RF01 — Cadastrar tarefa
+Responsabilidades:
 
-O sistema deverá permitir que o usuário informe o título de uma tarefa e a adicione à lista.
+apresentar os elementos visuais;
 
-RF02 — Listar tarefas
+receber dados do usuário;
 
-O sistema deverá apresentar todas as tarefas cadastradas.
+apresentar a lista de tarefas;
 
-RF03 — Concluir tarefa
+permitir iniciar ações.
 
-O sistema deverá permitir que uma tarefa seja marcada como concluída.
+A interface não deverá concentrar toda a lógica do sistema.
 
-5. Requisitos não funcionais
+4. Lógica da aplicação
 
-RNF01 — Facilidade de uso
+Arquivo:
 
-A interface deverá ser simples e permitir a utilização sem treinamento específico.
+src/app.js
 
-RNF02 — Execução
+Responsabilidades:
 
-A aplicação deverá funcionar em um navegador Web moderno.
+criar tarefas;
 
-RNF03 — Manutenibilidade
+armazenar tarefas;
 
-O código deverá ser organizado de forma que novas funcionalidades possam ser incorporadas posteriormente.
+listar tarefas;
 
-RNF04 — Documentação
+alterar o estado das tarefas;
 
-Alterações relevantes no sistema deverão ser acompanhadas de atualização da documentação.
+controlar as operações da aplicação.
 
-6. Restrições da versão inicial
+5. Dados
 
-A primeira versão:
+Na primeira versão, as tarefas serão armazenadas em memória.
 
-não utilizará banco de dados;
+Exemplo conceitual:
 
-não possuirá autenticação;
+ListaDeTarefas
+        |
+        +--- Tarefa 1
+        +--- Tarefa 2
+        +--- Tarefa 3
 
-não utilizará servidor;
+Ao fechar ou atualizar a página, os dados poderão ser perdidos.
 
-não realizará sincronização pela Internet;
+Isso é uma decisão de projeto da versão inicial e poderá ser alterado posteriormente.
 
-armazenará os dados apenas durante a execução da aplicação.
+6. Decisão de projeto
 
-7. Rastreabilidade inicial
+Foi escolhida uma arquitetura simples porque o objetivo inicial é validar:
 
-Requisito
+requisitos;
 
-Elemento previsto
+estrutura da aplicação;
 
-RF01
+comportamento;
 
-campo de texto + botão Adicionar
+modelagem;
 
-RF02
+fluxo de desenvolvimento.
 
-lista apresentada na interface
+Adicionar banco de dados, servidor ou autenticação nesta etapa aumentaria a complexidade sem ser necessário para validar o conceito principal.
 
-RF03
+7. Evolução futura
 
-função para alterar o estado da tarefa
+Em uma nova versão, poderíamos ter:
 
-8. Evoluções possíveis
+Interface
+    ↓
+Lógica
+    ↓
+API
+    ↓
+Banco de Dados
 
-Futuras versões poderão incluir:
+Essa alteração representaria uma evolução arquitetural e exigiria atualização desta documentação.
 
-prazo para conclusão;
-
-prioridade;
-
-categorias;
-
-armazenamento permanente;
-
-autenticação;
-
-sincronização;
-
-notificações.
-
-Essas alterações deverão ser analisadas antes da implementação.
