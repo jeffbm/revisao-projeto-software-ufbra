@@ -1,0 +1,21 @@
+@startuml
+actor Atendente
+boundary "Tela Agenda" as Tela
+control "AgendaService" as Service
+database "AgendamentoRepository" as Repo
+database Banco
+
+Atendente -> Tela : informar veículo, data/hora, motivo
+Tela -> Service : agendar(dados)
+Service -> Service : validar campos
+Service -> Repo : verificarConflito(dataHora)
+Repo -> Banco : SELECT
+Banco --> Repo : resultado
+Repo --> Service : sem conflito
+Service -> Repo : salvar(agendamento)
+Repo -> Banco : INSERT
+Banco --> Repo : ok
+Repo --> Service : agendamento
+Service --> Tela : confirmação
+Tela --> Atendente : horário agendado
+@enduml

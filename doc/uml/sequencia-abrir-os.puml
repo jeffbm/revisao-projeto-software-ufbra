@@ -1,0 +1,22 @@
+@startuml
+actor Atendente
+boundary "Tela OS" as Tela
+control "OSService" as Service
+database "Cliente/Veiculo Repository" as VR
+database "OSRepository" as Repo
+database "Banco" as DB
+
+Atendente -> Tela : informar dados e abrir
+Tela -> Service : abrirOS(dados)
+Service -> VR : buscarVeiculo(id)
+VR -> DB : SELECT
+DB --> VR : veículo
+VR --> Service : veículo
+Service -> Service : validar regras\ncriar OS ABERTA
+Service -> Repo : salvar(os)
+Repo -> DB : INSERT OS
+DB --> Repo : ok
+Repo --> Service : OS persistida
+Service --> Tela : número da OS
+Tela --> Atendente : confirmação
+@enduml

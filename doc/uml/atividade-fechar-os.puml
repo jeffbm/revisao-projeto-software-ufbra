@@ -1,0 +1,24 @@
+@startuml
+start
+:Selecionar OS;
+if (OS existe e está aberta?) then (sim)
+  if (Existe serviço executado?) then (sim)
+    :Validar peças/estoque;
+    if (Consistente?) then (sim)
+      :Calcular total;
+      :Registrar usuário e data/hora;
+      :Alterar status para FECHADA;
+      :Persistir transação;
+      :Exibir resumo;
+    else (não)
+      :Informar inconsistência;
+    endif
+  else (não)
+    :Bloquear fechamento;
+    :Informar necessidade de serviço;
+  endif
+else (não)
+  :Informar estado inválido;
+endif
+stop
+@enduml

@@ -1,0 +1,33 @@
+{
+  "project": "Oficina Prime",
+  "version": "1.0",
+  "purpose": "Modelo acadêmico de Projeto de Software",
+  "documents": [
+    "README.md",
+    "doc/00-visao-contexto-escopo.md",
+    "doc/01-requisitos.md",
+    "doc/02-casos-de-uso.md",
+    "doc/03-arquitetura-e-uml.md",
+    "doc/04-modelo-de-dados.md",
+    "doc/05-rastreabilidade.md",
+    "doc/06-plano-de-testes.md",
+    "doc/07-pronto-para-programar.md",
+    "doc/GUIA-DE-USO-COMO-MODELO.md",
+    "doc/modelos-processo/cascata.md",
+    "doc/modelos-processo/comparacao.md",
+    "doc/modelos-processo/espiral.md",
+    "doc/modelos-processo/incremental.md",
+    "doc/modelos-processo/prototipacao.md",
+    "doc/testes/casos-de-teste.md",
+    "doc/testes/criterios-de-aceitacao.md",
+    "doc/uml/README.md",
+    "doc/uml/atividade-fechar-os.puml",
+    "doc/uml/casos-de-uso.puml",
+    "doc/uml/classes.puml",
+    "doc/uml/componentes.puml",
+    "doc/uml/estados-os.puml",
+    "doc/uml/sequencia-abrir-os.puml",
+    "doc/uml/sequencia-agendar.puml",
+    "doc/uml/sequencia-fechar-os.puml"
+  ]
+}

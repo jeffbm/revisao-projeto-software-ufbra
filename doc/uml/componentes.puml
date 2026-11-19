@@ -1,0 +1,32 @@
+@startuml
+package "Interface" {
+  [Tela Cliente]
+  [Tela Agenda]
+  [Tela OS]
+}
+
+package "Aplicação" {
+  [ClienteService]
+  [AgendaService]
+  [OSService]
+  [EstoqueService]
+  [AutenticacaoService]
+}
+
+package "Persistência" {
+  [Repositories]
+}
+
+database "Banco de Dados" as DB
+
+[Tela Cliente] --> [ClienteService]
+[Tela Agenda] --> [AgendaService]
+[Tela OS] --> [OSService]
+[OSService] --> [EstoqueService]
+[ClienteService] --> [Repositories]
+[AgendaService] --> [Repositories]
+[OSService] --> [Repositories]
+[EstoqueService] --> [Repositories]
+[AutenticacaoService] --> [Repositories]
+[Repositories] --> DB
+@enduml

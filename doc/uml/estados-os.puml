@@ -1,0 +1,11 @@
+@startuml
+[*] --> ABERTA
+ABERTA --> EM_DIAGNOSTICO : iniciar diagnóstico
+EM_DIAGNOSTICO --> EM_EXECUCAO : aprovar/autorizar execução
+EM_EXECUCAO --> FECHADA : validar e fechar
+ABERTA --> CANCELADA : cancelar [gerente]
+EM_DIAGNOSTICO --> CANCELADA : cancelar [gerente]
+FECHADA --> ABERTA : reabrir [gerente + justificativa]
+FECHADA --> [*]
+CANCELADA --> [*]
+@enduml

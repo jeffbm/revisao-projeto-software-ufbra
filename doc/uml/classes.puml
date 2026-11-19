@@ -1,0 +1,95 @@
+@startuml
+class Cliente {
+  -id
+  -nome
+  -telefone
+  -email
+  +atualizar()
+}
+
+class Veiculo {
+  -id
+  -placa
+  -marca
+  -modelo
+  -ano
+  +consultarHistorico()
+}
+
+class Agendamento {
+  -id
+  -dataHora
+  -motivo
+  -status
+  +agendar()
+  +cancelar()
+}
+
+class OrdemServico {
+  -numero
+  -dataAbertura
+  -dataFechamento
+  -status
+  -quilometragem
+  -relato
+  -diagnostico
+  -total
+  +abrir()
+  +registrarDiagnostico()
+  +adicionarServico()
+  +adicionarPeca()
+  +calcularTotal()
+  +fechar()
+  +reabrir()
+}
+
+class ItemServico {
+  -id
+  -descricao
+  -quantidade
+  -valorUnitario
+  +subtotal()
+}
+
+class Peca {
+  -codigo
+  -descricao
+  -estoque
+  -valorUnitario
+  +baixar(qtd)
+  +repor(qtd)
+}
+
+class PecaUtilizada {
+  -id
+  -quantidade
+  -valorUnitario
+  +subtotal()
+}
+
+class Usuario {
+  -id
+  -login
+  -senhaHash
+  -perfil
+  +autenticar()
+  +temPermissao()
+}
+
+class Auditoria {
+  -id
+  -dataHora
+  -entidade
+  -identificador
+  -operacao
+  -detalhe
+}
+
+Cliente "1" *-- "0..*" Veiculo
+Veiculo "1" -- "0..*" Agendamento
+Veiculo "1" -- "0..*" OrdemServico
+OrdemServico "1" *-- "0..*" ItemServico
+OrdemServico "1" *-- "0..*" PecaUtilizada
+Peca "1" -- "0..*" PecaUtilizada
+Usuario "1" -- "0..*" Auditoria
+@enduml

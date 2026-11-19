@@ -1,0 +1,43 @@
+@startuml
+left to right direction
+actor Atendente
+actor "Mecânico" as Mecanico
+actor Gerente
+
+rectangle "Sistema Oficina Prime" {
+  usecase "Autenticar-se" as UC01
+  usecase "Cadastrar cliente" as UC02
+  usecase "Cadastrar veículo" as UC03
+  usecase "Agendar atendimento" as UC04
+  usecase "Abrir OS" as UC05
+  usecase "Registrar diagnóstico" as UC06
+  usecase "Adicionar serviço" as UC07
+  usecase "Registrar peça" as UC08
+  usecase "Fechar OS" as UC09
+  usecase "Consultar histórico" as UC10
+  usecase "Reabrir OS" as UC11
+  usecase "Cancelar OS" as UC12
+}
+
+Atendente --> UC01
+Atendente --> UC02
+Atendente --> UC03
+Atendente --> UC04
+Atendente --> UC05
+Atendente --> UC09
+Atendente --> UC10
+
+Mecanico --> UC01
+Mecanico --> UC06
+Mecanico --> UC07
+Mecanico --> UC08
+
+Gerente --> UC01
+Gerente --> UC09
+Gerente --> UC10
+Gerente --> UC11
+Gerente --> UC12
+
+UC05 ..> UC03 : <<precondition>>
+UC09 ..> UC07 : <<requires>>
+@enduml

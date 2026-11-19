@@ -1,0 +1,31 @@
+body {
+  font-family: Arial, sans-serif;
+  max-width: 1000px;
+  margin: auto;
+  padding: 24px;
+  background: #f5f6f8;
+  color: #222;
+}
+
+header, section {
+  background: white;
+  padding: 18px;
+  margin-bottom: 16px;
+  border-radius: 8px;
+}
+
+input, button {
+  padding: 10px;
+  margin: 4px;
+}
+
+button {
+  cursor: pointer;
+}
+
+pre {
+  overflow: auto;
+  background: #111;
+  color: #eee;
+  padding: 14px;
+}

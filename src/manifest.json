@@ -1,0 +1,14 @@
+{
+  "name": "Oficina Prime - Implementação de Referência",
+  "language": "JavaScript",
+  "runtime": "Node.js 22+",
+  "architecture": [
+    "interface",
+    "routes",
+    "services",
+    "domain",
+    "repositories",
+    "database"
+  ],
+  "file_count": 39
+}

@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Oficina Prime</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>Oficina Prime</h1>
+    <p>Implementação didática do projeto de software</p>
+  </header>
+
+  <main>
+    <section id="login">
+      <h2>1. Autenticação</h2>
+      <input id="loginUser" value="atendente" placeholder="Usuário">
+      <input id="loginPass" value="123456" type="password" placeholder="Senha">
+      <button onclick="entrar()">Entrar</button>
+      <p id="sessao"></p>
+    </section>
+
+    <section>
+      <h2>2. Cadastrar cliente</h2>
+      <input id="clienteNome" placeholder="Nome">
+      <input id="clienteTelefone" placeholder="Telefone">
+      <input id="clienteEmail" placeholder="E-mail">
+      <button onclick="criarCliente()">Cadastrar</button>
+    </section>
+
+    <section>
+      <h2>3. Cadastrar veículo</h2>
+      <input id="veiculoClienteId" placeholder="ID do cliente">
+      <input id="veiculoPlaca" placeholder="Placa">
+      <input id="veiculoMarca" placeholder="Marca">
+      <input id="veiculoModelo" placeholder="Modelo">
+      <button onclick="criarVeiculo()">Cadastrar</button>
+    </section>
+
+    <section>
+      <h2>4. Abrir Ordem de Serviço</h2>
+      <input id="osVeiculoId" placeholder="ID do veículo">
+      <input id="osKm" placeholder="Quilometragem">
+      <input id="osRelato" placeholder="Relato inicial">
+      <button onclick="abrirOS()">Abrir OS</button>
+    </section>
+
+    <section>
+      <h2>Consulta</h2>
+      <button onclick="carregarTudo()">Atualizar dados</button>
+      <pre id="saida">Faça login e execute as operações.</pre>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

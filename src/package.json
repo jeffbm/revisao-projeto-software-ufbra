@@ -1,0 +1,17 @@
+{
+  "name": "oficina-prime",
+  "version": "1.0.0",
+  "description": "Implementação didática do projeto Oficina Prime - UFBRA",
+  "type": "module",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js",
+    "test": "node --test"
+  },
+  "dependencies": {
+    "express": "^5.1.0"
+  },
+  "engines": {
+    "node": ">=22.5.0"
+  }
+}

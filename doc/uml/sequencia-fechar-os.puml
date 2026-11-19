@@ -1,0 +1,29 @@
+@startuml
+actor Usuario
+boundary Tela
+control OSService
+control EstoqueService
+database OSRepository
+database PecaRepository
+database Banco
+
+Usuario -> Tela : fechar OS
+Tela -> OSService : fecharOS(numero)
+OSService -> OSRepository : buscar(numero)
+OSRepository -> Banco : SELECT
+Banco --> OSRepository : OS
+OSRepository --> OSService : OS
+OSService -> OSService : validar status\nvalidar serviços\ncalcular total
+OSService -> EstoqueService : validarConsistencia(OS)
+EstoqueService -> PecaRepository : consultar saldos
+PecaRepository -> Banco : SELECT peças
+Banco --> PecaRepository : saldos
+PecaRepository --> EstoqueService : saldos
+EstoqueService --> OSService : ok
+OSService -> OSRepository : salvar status FECHADA
+OSRepository -> Banco : UPDATE + COMMIT
+Banco --> OSRepository : ok
+OSRepository --> OSService : ok
+OSService --> Tela : resumo
+Tela --> Usuario : OS fechada
+@enduml
