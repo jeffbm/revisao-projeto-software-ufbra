@@ -1,7 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { OSService } from "../src/services/OSService.js";
-import { Perfis } from "../src/config/constants.js";
+import { OSService } from "../services/OSService.js";
+import { Perfis } from "../config/constants.js";
 
 /**
  * Teste de autorização com doubles simples.

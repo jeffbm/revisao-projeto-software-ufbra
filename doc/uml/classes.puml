@@ -21,6 +21,7 @@ class Agendamento {
   -dataHora
   -motivo
   -status
+  -osNumero
   +agendar()
   +cancelar()
 }
@@ -33,6 +34,7 @@ class OrdemServico {
   -quilometragem
   -relato
   -diagnostico
+  -mecanicoId
   -total
   +abrir()
   +registrarDiagnostico()
@@ -55,6 +57,7 @@ class Peca {
   -codigo
   -descricao
   -estoque
+  -estoqueMinimo
   -valorUnitario
   +baixar(qtd)
   +repor(qtd)
@@ -92,4 +95,6 @@ OrdemServico "1" *-- "0..*" ItemServico
 OrdemServico "1" *-- "0..*" PecaUtilizada
 Peca "1" -- "0..*" PecaUtilizada
 Usuario "1" -- "0..*" Auditoria
+Usuario "0..1" -- "0..*" OrdemServico : responsável
+Agendamento "0..1" -- "0..1" OrdemServico : conversão
 @enduml

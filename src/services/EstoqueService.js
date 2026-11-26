@@ -22,7 +22,7 @@ export class EstoqueService {
     const qtd = Number(quantidade);
 
     // A transação garante RNF08: nada deve ficar parcialmente gravado.
-    this.db.exec("BEGIN");
+    this.db.exec("SAVEPOINT uso_peca");
 
     try {
       peca.baixar(qtd); // RN05
@@ -37,8 +37,6 @@ export class EstoqueService {
       this.ordens.adicionarPeca(osNumero, item);
       this.pecas.salvar(peca);
 
-      this.db.exec("COMMIT");
-
       this.auditoria.registrar(
         usuario,
         "ORDEM_SERVICO",
@@ -47,9 +45,11 @@ export class EstoqueService {
         `${codigo} x ${qtd}`
       );
 
-      return this.ordens.buscar(osNumero);
+      const resultado = this.ordens.buscar(osNumero);
+      this.db.exec("RELEASE uso_peca");
+      return resultado;
     } catch (erro) {
-      this.db.exec("ROLLBACK");
+      this.db.exec("ROLLBACK TO uso_peca; RELEASE uso_peca");
       throw erro;
     }
   }

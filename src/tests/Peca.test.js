@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { Peca } from "../src/domain/Peca.js";
+import { Peca } from "../domain/Peca.js";
 
 test("CT08 - impede baixa maior que estoque", () => {
   const peca = new Peca({

@@ -124,3 +124,15 @@ USUARIO 1 ─── N AUDITORIA
 - exclusões físicas devem ser evitadas quando eliminarem histórico;
 - baixa de estoque e inclusão de peça na OS devem compor uma operação transacional;
 - o total da OS não deve depender de cálculo manual do usuário.
+
+## 4. Campos adicionados pela migração V2
+
+| Tabela | Campo | Tipo físico | Regra |
+|---|---|---|---|
+| ordens_servico | mecanico_id | INTEGER NULL REFERENCES usuarios(id) | Usuário ativo com perfil MECANICO na atribuição; nulo = sem responsável |
+| agendamentos | os_numero | INTEGER NULL REFERENCES ordens_servico(numero) | Preenchido ao converter para OS; um agendamento só é convertido uma vez |
+| pecas | estoque_minimo | REAL NOT NULL DEFAULT 5 | Alerta quando saldo <= mínimo |
+
+Não há novas tabelas nem exclusão de colunas. Índices de status/veículo da OS, agenda e auditoria facilitam consulta. `subtotal` é calculado, não armazenado. Valor unitário em `pecas_utilizadas` preserva preço do lançamento. Quantidades e preços usam REAL no SQLite com arredondamento do total para duas casas, solução didática, não fiscal. A agenda usa data/hora local, enquanto abertura, fechamento e auditoria usam ISO em UTC.
+
+Novas associações: USUARIO (mecânico) 0..1 → N ORDEM_SERVICO; AGENDAMENTO 0..1 ↔ 0..1 ORDEM_SERVICO (associação opcional no fluxo). A inativação preserva histórico e não apaga usuário.

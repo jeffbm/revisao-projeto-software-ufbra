@@ -17,7 +17,7 @@ export function createDatabase(filename = "./data/oficina-prime.db") {
   const db = new DatabaseSync(filename);
 
   // Habilita integridade referencial no SQLite.
-  db.exec("PRAGMA foreign_keys = ON;");
+  db.exec("PRAGMA foreign_keys = ON; PRAGMA busy_timeout = 5000;");
 
   return db;
 }

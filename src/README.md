@@ -1,95 +1,41 @@
-# `/src` — Implementação de Referência: Oficina Prime
+# Oficina Prime 2.0 — Implementação didática
 
-Este diretório concretiza o projeto documentado da **Oficina Prime**.
+Aplicação de referência da UFBRA. Node.js >= 22.5 (recomendado Node 24 LTS no ambiente de aula), Express 5, SQLite nativo (`node:sqlite`) e frontend sem dependências externas.
 
-A implementação foi escrita para fins didáticos. Ela mostra como transformar:
+## Executar
 
-```text
-Requisitos
-  ↓
-Casos de uso
-  ↓
-Classes e arquitetura
-  ↓
-Código
-  ↓
-Testes
-```
-
-## Tecnologias
-
-- Node.js 22+
-- Express
-- SQLite por meio do módulo nativo `node:sqlite`
-- HTML/CSS/JavaScript no frontend
-- `node:test` para testes automatizados
-
-## Estrutura
-
-```text
-src/
-├── app.js
-├── server.js
-├── config/
-├── database/
-├── domain/
-├── repositories/
-├── services/
-├── middleware/
-├── routes/
-└── public/
-```
-
-## Relação com a arquitetura
-
-```text
-public/             → Interface
-routes/             → Entrada HTTP / controladores
-services/           → Casos de uso / aplicação
-domain/             → Entidades e regras
-repositories/       → Persistência
-database/           → SQLite
-```
-
-## Como executar
+A partir deste diretório (`src`):
 
 ```bash
 npm install
+npm test
 npm start
 ```
 
-Acesse:
+Windows PowerShell: use `npm.cmd` caso a política de scripts bloqueie `npm.ps1`.
 
-```text
-http://localhost:3000
-```
+Acesso padrão: `http://localhost:3000`; `GET /health` verifica a versão. `HOST` (padrão `0.0.0.0`), `PORT` (3000) e `DATABASE_FILE` (`./data/oficina-prime.db`) são configuráveis. Para teste apenas local: `HOST=127.0.0.1 npm start`.
 
-## Usuários de demonstração
+Credenciais iniciais: `atendente`, `mecanico`, `gerente`, senha `123456` em banco novo. Altere antes de uso compartilhado. Dados fictícios e rede autorizada somente.
 
-O banco inicial cria:
+## Estrutura e responsabilidades
 
-| Login | Senha | Perfil |
-|---|---|---|
-| atendente | `123456` | ATENDENTE |
-| mecanico | `123456` | MECANICO |
-| gerente | `123456` | GERENTE |
+| Arquivo/diretório | Responsabilidade |
+|---|---|
+| `server.js` | Inicialização HTTP e encerramento |
+| `app.js` | Express, rotas e estáticos |
+| `oficina.js` | Composition root, serviços e banco |
+| `public/` | Interface responsiva, filtros, formulários, impressão |
+| `routes/` | Contrato HTTP e respostas JSON |
+| `middleware/auth.js` | Autenticação Bearer |
+| `services/OficinaService.js` | Orquestração, validação, RBAC e transações |
+| `services/OSService.js`, `EstoqueService.js` etc. | Casos de uso e regras coordenadas |
+| `domain/` | Entidades e regras de negócio |
+| `repositories/` | Consultas e persistência parametrizada |
+| `database/` | Schema, migração e seed inicial |
+| `scripts/` | Backup e base de demonstração separada |
+| `tests/` | 7 testes originais, 10 de integração e 1 HTTP |
 
-> Essas credenciais existem apenas para aula. Em produção, senhas padrão são inadequadas.
+`npm run demo` cria `data/oficina-demo.db` sem substituir arquivos existentes. Para usá-lo, configure `DATABASE_FILE`. `npm run backup` cria uma cópia verificada do banco atual. Nunca execute com `sudo` desnecessariamente.
 
-## Testes
-
-```bash
-npm test
-```
-
-Os testes automatizados cobrem regras importantes previstas no plano, como:
-
-- fechamento sem serviço;
-- cálculo do total;
-- saldo de estoque;
-- transições da OS;
-- autorização de gerente.
-
-## Observação
-
-Esta aplicação é uma **implementação pedagógica de referência**, não um produto pronto para produção. Aspectos como autenticação distribuída, observabilidade, backup operacional, proteção CSRF, rate limiting e deployment devem ser aprofundados em uma solução real.
+Consulte `../README-ATUALIZACAO-V2.md` e a documentação em `../doc`. Não confundir a aplicação acadêmica com um produto financeiro/operacional pronto para produção.

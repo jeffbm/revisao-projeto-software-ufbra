@@ -27,3 +27,25 @@ Nenhum requisito crítico deve ficar sem:
 1. caso de uso ou decisão de arquitetura;
 2. componente responsável;
 3. pelo menos um teste associado.
+
+## Matriz complementar V2 — código e evidências
+
+| Requisito | Caso de uso | Componente principal | Verificação |
+|---|---|---|---|
+| RF01/RNF01/RNF09 | UC01 | AutenticacaoService, auth | CT29, CT31 |
+| RF02/RF03/RF17 | UC02/03/15 | OficinaService, Cliente/VeiculoService | CT26 |
+| RF04/RF11/RF18 | UC04/16 | OficinaService, AgendaService, GestaoRepository | CT21, CT27 |
+| RF05–RF10 | UC05–UC10 | OSService, EstoqueService, OficinaService | CT21, CT23, CT24, CT25 |
+| RF12/RF23 | UC21 | AuditoriaService/GestaoRepository | CT21, CT23, CT28, CT31 |
+| RF13/RF14 | UC11/12 | OficinaService/OSService | CT22, CT24 |
+| RF15/RF16 | UC13/14 | GestaoRepository, OficinaService, public/app.js | CT21, CT22, AT04/05 |
+| RF19 | UC17 | OficinaService/GestaoRepository | CT28, AT13 |
+| RF20 | UC18 | OficinaService | CT25 |
+| RF21/RNF02 | UC19 | OficinaService/AutenticacaoService | CT22, CT29 |
+| RF22 | UC20 | OficinaService.painel, public/app.js | CT21, CT24, AT15 |
+| RF24 | UC13 | public/app.js / CSS de impressão | AT12 |
+| RF25/RNF04 | UC22 | scripts/backup.js, scripts/demo.js | teste local scripts, AT18 (rotina diária pendente) |
+| RNF07/08/10 | UC05/08/18 | SQLite, OficinaService | CT23, CT26, CT30 |
+| RNF03/RNF06 | Vários | Interface/servidor/rede | AT19/20 e aceite em aula, pendentes |
+
+CT31 é integração HTTP prevista; só será aprovado após execução com Express instalado. CT20/RNF03 permanece pendente. A lista original de casos é o planejamento; não significa que todos os CT01–CT20 tenham sido executados individualmente.

@@ -1,11 +1,20 @@
 @startuml
-[*] --> ABERTA
-ABERTA --> EM_DIAGNOSTICO : iniciar diagnóstico
-EM_DIAGNOSTICO --> EM_EXECUCAO : aprovar/autorizar execução
-EM_EXECUCAO --> FECHADA : validar e fechar
-ABERTA --> CANCELADA : cancelar [gerente]
-EM_DIAGNOSTICO --> CANCELADA : cancelar [gerente]
-FECHADA --> ABERTA : reabrir [gerente + justificativa]
-FECHADA --> [*]
+[*] --> ABERTA : abrir OS
+ABERTA --> EM_DIAGNOSTICO : registrar diagnóstico
+ABERTA --> EM_EXECUCAO : adicionar serviço
+EM_DIAGNOSTICO --> EM_EXECUCAO : adicionar serviço
+EM_EXECUCAO --> EM_EXECUCAO : lançar/corrigir itens e diagnóstico
+EM_DIAGNOSTICO --> EM_DIAGNOSTICO : atualizar diagnóstico
+ABERTA --> FECHADA : fechar [possui serviço após reabertura]
+EM_DIAGNOSTICO --> FECHADA : fechar [possui serviço]
+EM_EXECUCAO --> FECHADA : fechar [possui serviço]
+ABERTA --> CANCELADA : cancelar [gerente + motivo]
+EM_DIAGNOSTICO --> CANCELADA : cancelar [gerente + motivo]
+EM_EXECUCAO --> CANCELADA : cancelar [gerente + motivo]
+FECHADA --> ABERTA : reabrir [gerente + motivo]
 CANCELADA --> [*]
+note right of CANCELADA
+  Itens e consumo histórico preservados.
+  Não reabre.
+end note
 @enduml

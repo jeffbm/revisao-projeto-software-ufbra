@@ -1,58 +1,19 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Oficina Prime</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#142c3b"><title>Oficina Prime | Gestão de serviços</title>
+<link rel="stylesheet" href="/style.css"><script type="module" src="/app.js"></script>
 </head>
 <body>
-  <header>
-    <h1>Oficina Prime</h1>
-    <p>Implementação didática do projeto de software</p>
-  </header>
-
-  <main>
-    <section id="login">
-      <h2>1. Autenticação</h2>
-      <input id="loginUser" value="atendente" placeholder="Usuário">
-      <input id="loginPass" value="123456" type="password" placeholder="Senha">
-      <button onclick="entrar()">Entrar</button>
-      <p id="sessao"></p>
-    </section>
-
-    <section>
-      <h2>2. Cadastrar cliente</h2>
-      <input id="clienteNome" placeholder="Nome">
-      <input id="clienteTelefone" placeholder="Telefone">
-      <input id="clienteEmail" placeholder="E-mail">
-      <button onclick="criarCliente()">Cadastrar</button>
-    </section>
-
-    <section>
-      <h2>3. Cadastrar veículo</h2>
-      <input id="veiculoClienteId" placeholder="ID do cliente">
-      <input id="veiculoPlaca" placeholder="Placa">
-      <input id="veiculoMarca" placeholder="Marca">
-      <input id="veiculoModelo" placeholder="Modelo">
-      <button onclick="criarVeiculo()">Cadastrar</button>
-    </section>
-
-    <section>
-      <h2>4. Abrir Ordem de Serviço</h2>
-      <input id="osVeiculoId" placeholder="ID do veículo">
-      <input id="osKm" placeholder="Quilometragem">
-      <input id="osRelato" placeholder="Relato inicial">
-      <button onclick="abrirOS()">Abrir OS</button>
-    </section>
-
-    <section>
-      <h2>Consulta</h2>
-      <button onclick="carregarTudo()">Atualizar dados</button>
-      <pre id="saida">Faça login e execute as operações.</pre>
-    </section>
-  </main>
-
-  <script src="app.js"></script>
-</body>
-</html>
+<section id="loginView" class="login-view">
+  <div class="login-intro"><div class="brand"><span class="brand-mark">OP</span><span>OFICINA<span class="brand-accent"> PRIME</span></span></div><div class="eyebrow">GESTÃO DE SERVIÇOS AUTOMOTIVOS</div><h1>Da recepção à entrega.</h1><p>Clientes, veículos, agenda, ordens de serviço e estoque em um único ambiente.</p><div class="login-note">Projeto integrador · UFBRA<br>Projeto de Software — versão 2.0</div></div>
+  <div class="login-panel"><div class="login-card"><div class="eyebrow">ACESSO AO SISTEMA</div><h2>Bem-vindo</h2><p class="muted">Informe suas credenciais para acessar sua área de trabalho.</p><form id="loginForm"><label>Usuário<input name="login" autocomplete="username" required placeholder="Seu login" autofocus></label><label>Senha<input name="senha" type="password" autocomplete="current-password" required placeholder="Sua senha"></label><button class="primary wide" type="submit">Entrar na oficina <span aria-hidden="true">→</span></button><p id="loginError" role="alert" class="error"></p></form><details class="demo"><summary>Credenciais para aula</summary><p><b>atendente</b> · <b>mecanico</b> · <b>gerente</b><br>Senha inicial: <code>123456</code> (se ainda não alterada).</p><p>Use apenas dados fictícios.</p></details></div></div>
+</section>
+<div id="workspace" class="workspace" hidden>
+  <aside id="sidebar" class="sidebar"><div class="brand"><span class="brand-mark">OP</span><span>OFICINA<span class="brand-accent"> PRIME</span><small>GESTÃO AUTOMOTIVA</small></span></div><div class="nav-label">ÁREA DE TRABALHO</div><nav id="nav" aria-label="Navegação principal"></nav><div class="side-bottom"><span>UFBRA · PROJETO DE SOFTWARE</span><small>Versão 2.0 · Ambiente didático</small></div></aside>
+  <div class="main-shell"><header class="topbar"><div class="top-left"><button id="menuToggle" type="button" class="icon-button menu-toggle" aria-label="Abrir menu">☰</button><span id="breadcrumb">Painel</span></div><div class="session"><span class="avatar" id="avatar">OP</span><div><b id="sessionLogin"></b><small id="sessionRole"></small></div><button id="logout" class="secondary" type="button">Sair</button></div></header><main id="content" tabindex="-1" aria-live="polite"></main><footer>Oficina Prime · UFBRA · Uso acadêmico</footer></div>
+</div>
+<dialog id="dialog"><div class="dialog-head"><h2 id="dialogTitle"></h2><button id="dialogClose" class="icon-button" aria-label="Fechar" type="button">×</button></div><div id="dialogBody"></div></dialog>
+<div id="toast" class="toast" role="status" hidden></div>
+</body></html>

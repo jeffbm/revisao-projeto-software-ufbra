@@ -49,3 +49,7 @@ Antes do código, a equipe sabe:
 - quais testes provarão que funciona.
 
 Isso reduz decisões improvisadas durante a programação.
+
+## Pós-implementação (V2)
+
+O checklist acima permanece como referência de entrada. Para a entrega, execute a regressão, revise o diff, valide o fluxo por perfil em ambiente real, faça backup, registre evidências e publique a versão somente após aprovação. Consulte [11](11-aceitacao-e-entrega.md).

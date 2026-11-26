@@ -1,0 +1,126 @@
+
+> oficina-prime@2.0.0 test
+> node --test
+
+TAP version 13
+# Subtest: CT19 - não gerente não pode reabrir OS
+ok 1 - CT19 - não gerente não pode reabrir OS
+  ---
+  duration_ms: 0.798753
+  type: 'test'
+  ...
+# Subtest: CT31 - HTTP: página, login, autenticação, autorização e fluxo OS
+ok 2 - CT31 - HTTP: página, login, autenticação, autorização e fluxo OS # SKIP Express não instalado; execute npm install e repita.
+  ---
+  duration_ms: 1.476825
+  type: 'test'
+  ...
+# (node:1687) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:1688) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: CT21 - cadastro, agenda, atribuição, diagnóstico, serviço, peça, fechamento, histórico e relatório
+ok 3 - CT21 - cadastro, agenda, atribuição, diagnóstico, serviço, peça, fechamento, histórico e relatório
+  ---
+  duration_ms: 271.173375
+  type: 'test'
+  ...
+# Subtest: CT22 - RBAC, acesso de outro mecânico e sessão revogada
+ok 4 - CT22 - RBAC, acesso de outro mecânico e sessão revogada
+  ---
+  duration_ms: 274.192924
+  type: 'test'
+  ...
+# Subtest: CT23 - estoque insuficiente e auditoria com falha provocam rollback integral
+ok 5 - CT23 - estoque insuficiente e auditoria com falha provocam rollback integral
+  ---
+  duration_ms: 203.25468
+  type: 'test'
+  ...
+# Subtest: CT24 - fechar sem serviço, bloquear edição, reabrir e cancelar com justificativa
+ok 6 - CT24 - fechar sem serviço, bloquear edição, reabrir e cancelar com justificativa
+  ---
+  duration_ms: 226.78022
+  type: 'test'
+  ...
+# Subtest: CT25 - devolução de peça e remoção de serviço recalculam total
+ok 7 - CT25 - devolução de peça e remoção de serviço recalculam total
+  ---
+  duration_ms: 207.29127
+  type: 'test'
+  ...
+# Subtest: CT26 - integridade cadastral, placa única e cliente ativo
+ok 8 - CT26 - integridade cadastral, placa única e cliente ativo
+  ---
+  duration_ms: 206.042419
+  type: 'test'
+  ...
+# Subtest: CT27 - agenda rejeita conflito, reage a cancelamento e evita OS duplicada
+ok 9 - CT27 - agenda rejeita conflito, reage a cancelamento e evita OS duplicada
+  ---
+  duration_ms: 207.843623
+  type: 'test'
+  ...
+# Subtest: CT28 - cadastro e movimentação gerencial de peças, preços históricos
+ok 10 - CT28 - cadastro e movimentação gerencial de peças, preços históricos
+  ---
+  duration_ms: 204.039932
+  type: 'test'
+  ...
+# Subtest: CT29 - valores inválidos não persistem e senhas não são armazenadas em claro
+ok 11 - CT29 - valores inválidos não persistem e senhas não são armazenadas em claro
+  ---
+  duration_ms: 278.134632
+  type: 'test'
+  ...
+# Subtest: CT30 - migração aditiva de banco V1 e persistência após reinício
+ok 12 - CT30 - migração aditiva de banco V1 e persistência após reinício
+  ---
+  duration_ms: 295.088036
+  type: 'test'
+  ...
+# Subtest: CT05 - nova OS inicia ABERTA
+ok 13 - CT05 - nova OS inicia ABERTA
+  ---
+  duration_ms: 0.949119
+  type: 'test'
+  ...
+# Subtest: CT09 - não permite fechar OS sem serviço
+ok 14 - CT09 - não permite fechar OS sem serviço
+  ---
+  duration_ms: 1.208471
+  type: 'test'
+  ...
+# Subtest: RN12 - total soma serviços e peças
+ok 15 - RN12 - total soma serviços e peças
+  ---
+  duration_ms: 0.311199
+  type: 'test'
+  ...
+# Subtest: fechar OS altera estado e calcula total
+ok 16 - fechar OS altera estado e calcula total
+  ---
+  duration_ms: 0.255174
+  type: 'test'
+  ...
+# Subtest: CT08 - impede baixa maior que estoque
+ok 17 - CT08 - impede baixa maior que estoque
+  ---
+  duration_ms: 1.046076
+  type: 'test'
+  ...
+# Subtest: baixa válida reduz estoque
+ok 18 - baixa válida reduz estoque
+  ---
+  duration_ms: 0.19225
+  type: 'test'
+  ...
+1..18
+# tests 18
+# suites 0
+# pass 17
+# fail 0
+# cancelled 0
+# skipped 1
+# todo 0
+# duration_ms 2458.577567

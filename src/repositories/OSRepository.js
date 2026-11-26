@@ -36,12 +36,12 @@ export class OSRepository {
     if (!row) return null;
 
     const servicos = this.db.prepare(`
-      SELECT descricao, quantidade, valor_unitario AS valorUnitario
+      SELECT id, descricao, quantidade, valor_unitario AS valorUnitario
       FROM itens_servico WHERE os_numero = ?
     `).all(numero);
 
     const pecas = this.db.prepare(`
-      SELECT pu.peca_codigo AS codigo, p.descricao,
+      SELECT pu.id, pu.peca_codigo AS codigo, p.descricao,
              pu.quantidade, pu.valor_unitario AS valorUnitario
       FROM pecas_utilizadas pu
       JOIN pecas p ON p.codigo = pu.peca_codigo

@@ -11,8 +11,8 @@
 | RF07 Serviço | `OSService.adicionarServico()` |
 | RF08 Peça | `EstoqueService.registrarPecaNaOS()` |
 | RF09 Fechar OS | `OSService.fechar()` |
-| RF10 Histórico | `OSRepository.historicoVeiculo()` |
-| RF11 Agenda | `AgendaService.listar()` |
+| RF10 Histórico | `OficinaService.historico()` / `GestaoRepository.ordens()` |
+| RF11 Agenda | `OficinaService.agenda()` / `GestaoRepository.agenda()` |
 | RF12 Auditoria | `AuditoriaService` |
 | RF13 Reabrir OS | `OSService.reabrir()` |
 | RF14 Cancelar OS | `OSService.cancelar()` |
@@ -35,3 +35,7 @@
 
 - autorização: `services/OSService.js`
 - teste: `tests/Autorizacao.test.js`
+
+## V2
+
+RF15–RF25 estão mapeados em `../../doc/05-rastreabilidade.md`. A entrada de todas as mutações protegidas é `OficinaService`; `registerApiRoutes.js` expõe o contrato HTTP. `Oficina.integration.test.js` verifica regras e persistência de forma integrada.

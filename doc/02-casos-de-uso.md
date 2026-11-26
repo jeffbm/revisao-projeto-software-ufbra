@@ -23,8 +23,8 @@
 | UC06 | Registrar diagnóstico | Mecânico |
 | UC07 | Adicionar serviço | Mecânico |
 | UC08 | Registrar peça utilizada | Mecânico |
-| UC09 | Fechar OS | Atendente/Gerente |
-| UC10 | Consultar histórico | Atendente/Gerente |
+| UC09 | Fechar OS | Atendente/Mecânico autorizado/Gerente |
+| UC10 | Consultar histórico | Atendente/Mecânico/Gerente |
 | UC11 | Reabrir OS | Gerente |
 | UC12 | Cancelar OS | Gerente |
 
@@ -58,7 +58,7 @@ Atendente.
 ## Fluxos alternativos
 - **A1 — veículo não cadastrado:** executar UC03 antes de continuar.
 - **A2 — campos obrigatórios ausentes:** informar erro e não gravar.
-- **A3 — OS já aberta para o veículo:** alertar e solicitar confirmação conforme política definida.
+- **A3 — OS já aberta para o veículo:** o modelo permite atendimentos simultâneos independentes; a consulta por placa ajuda a evitar duplicidade operacional. Não existe bloqueio de múltiplas OS diretas.
 
 ## Pós-condições
 - OS persistida;
@@ -169,3 +169,24 @@ Gerente.
 - `Registrar Peça` depende de OS válida.
 - `Fechar OS` depende de serviços registrados.
 - `Reabrir OS` especializa uma operação administrativa e exige autorização.
+
+## 4. Casos de uso adicionais V2
+
+| ID | Caso de uso | Ator | Fluxo / resultado |
+|---|---|---|---|
+| UC13 | Consultar OS | Todos | Filtrar lista, selecionar número, visualizar detalhe, imprimir |
+| UC14 | Atribuir mecânico | Gerente | OS em andamento → selecionar responsável ativo → salvar e auditar |
+| UC15 | Editar cadastro | Atendente/Gerente | Selecionar registro, validar dados e salvar; gerente controla situação |
+| UC16 | Operar agenda | Atendente/Gerente | Reagendar ou cancelar; converter uma única vez em OS |
+| UC17 | Administrar estoque | Gerente | Cadastrar/editar peça, informar entrada/saída e justificativa, validar saldo |
+| UC18 | Corrigir item | Mecânico autorizado/Gerente | Escolher serviço/peça, justificar, remover/devolver e recalcular |
+| UC19 | Administrar usuário | Gerente | Criar ou alterar perfil/estado/senha, revogar sessão |
+| UC20 | Gerar relatório | Gerente | Filtrar datas/OS fechadas, consultar totais, exportar/imprimir |
+| UC21 | Consultar auditoria | Gerente | Pesquisar eventos relevantes e justificativas |
+| UC22 | Executar backup/demo | Operador da VM | Comando local sobre arquivo configurado, verificação de integridade |
+
+### UC12 — Cancelar OS (V2)
+
+Gerente seleciona OS em andamento, devolve peças não utilizadas se aplicável, informa justificativa e confirma. A OS torna-se CANCELADA, mantém itens e consumo histórico e não entra no relatório de fechadas. Não é permitido cancelar diretamente uma fechada nem reabrir cancelada.
+
+A atribuição restringe mutações do mecânico, mas não consultas. A matriz de papéis detalhada está em [08](08-incremento-v2.md).

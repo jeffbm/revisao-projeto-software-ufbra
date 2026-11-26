@@ -91,4 +91,17 @@ export function createSchema(db) {
       FOREIGN KEY (usuario_id) REFERENCES usuarios(id)
     );
   `);
+  // Migração aditiva: mantém o banco utilizado nas aulas anteriores.
+  const add = (table, column, definition) => {
+    if (!db.prepare(`PRAGMA table_info(${table})`).all().some(c => c.name === column)) {
+      db.exec(`ALTER TABLE ${table} ADD COLUMN ${column} ${definition}`);
+    }
+  };
+  add("ordens_servico", "mecanico_id", "INTEGER REFERENCES usuarios(id)");
+  add("agendamentos", "os_numero", "INTEGER REFERENCES ordens_servico(numero)");
+  add("pecas", "estoque_minimo", "REAL NOT NULL DEFAULT 5");
+  db.exec(`CREATE INDEX IF NOT EXISTS idx_os_status ON ordens_servico(status);
+    CREATE INDEX IF NOT EXISTS idx_os_veiculo ON ordens_servico(veiculo_id);
+    CREATE INDEX IF NOT EXISTS idx_agenda_data ON agendamentos(data_hora);
+    CREATE INDEX IF NOT EXISTS idx_auditoria_data ON auditoria(data_hora);`);
 }

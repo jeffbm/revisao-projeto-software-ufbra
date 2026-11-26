@@ -1,32 +1,38 @@
 @startuml
-package "Interface" {
-  [Tela Cliente]
-  [Tela Agenda]
-  [Tela OS]
+package "Interface web" {
+  [Painéis e formulários] as UI
 }
-
+package "HTTP / Express" {
+  [Auth middleware] as AUTH
+  [Rotas API] as API
+}
 package "Aplicação" {
-  [ClienteService]
-  [AgendaService]
-  [OSService]
-  [EstoqueService]
-  [AutenticacaoService]
+  [OficinaService] as OF
+  [AutenticacaoService] as AS
+  [Serviços V1] as SV
+  [AuditoriaService] as AU
 }
-
+package "Domínio" {
+  [Cliente / Veiculo / OS / Peca] as DOM
+}
 package "Persistência" {
-  [Repositories]
+  [Repositórios V1] as REPO
+  [GestaoRepository] as GR
+  database "SQLite" as DB
 }
-
-database "Banco de Dados" as DB
-
-[Tela Cliente] --> [ClienteService]
-[Tela Agenda] --> [AgendaService]
-[Tela OS] --> [OSService]
-[OSService] --> [EstoqueService]
-[ClienteService] --> [Repositories]
-[AgendaService] --> [Repositories]
-[OSService] --> [Repositories]
-[EstoqueService] --> [Repositories]
-[AutenticacaoService] --> [Repositories]
-[Repositories] --> DB
+UI --> API : HTTP / JSON
+API --> AUTH
+AUTH --> AS
+API --> OF
+OF --> SV
+OF --> GR
+OF --> AU
+OF --> DB : transação
+SV --> DOM
+SV --> REPO
+SV --> AU
+AS --> REPO
+AU --> REPO
+REPO --> DB
+GR --> DB
 @enduml

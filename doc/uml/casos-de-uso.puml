@@ -1,43 +1,56 @@
 @startuml
 left to right direction
-actor Atendente
-actor "Mecânico" as Mecanico
-actor Gerente
-
-rectangle "Sistema Oficina Prime" {
-  usecase "Autenticar-se" as UC01
-  usecase "Cadastrar cliente" as UC02
-  usecase "Cadastrar veículo" as UC03
-  usecase "Agendar atendimento" as UC04
-  usecase "Abrir OS" as UC05
-  usecase "Registrar diagnóstico" as UC06
-  usecase "Adicionar serviço" as UC07
-  usecase "Registrar peça" as UC08
-  usecase "Fechar OS" as UC09
-  usecase "Consultar histórico" as UC10
-  usecase "Reabrir OS" as UC11
-  usecase "Cancelar OS" as UC12
+actor Atendente as A
+actor "Mecânico" as M
+actor Gerente as G
+rectangle "Oficina Prime 2.0" {
+  usecase "UC01\nAutenticar" as U1
+  usecase "UC02/03/15\nGerenciar cadastros" as U2
+  usecase "UC04/16\nOperar agenda" as U4
+  usecase "UC05\nAbrir OS" as U5
+  usecase "UC13\nConsultar OS e imprimir" as U13
+  usecase "UC06/07/08/18\nDiagnóstico, itens e correções" as U6
+  usecase "UC09\nFechar OS" as U9
+  usecase "UC10\nConsultar histórico" as U10
+  usecase "Consultar agenda/estoque" as Q
+  usecase "UC14\nAtribuir mecânico" as U14
+  usecase "UC11/12\nReabrir ou cancelar OS" as U11
+  usecase "UC17\nGerenciar estoque" as U17
+  usecase "UC19\nGerenciar usuários" as U19
+  usecase "UC20\nRelatórios" as U20
+  usecase "UC21\nConsultar auditoria" as U21
 }
-
-Atendente --> UC01
-Atendente --> UC02
-Atendente --> UC03
-Atendente --> UC04
-Atendente --> UC05
-Atendente --> UC09
-Atendente --> UC10
-
-Mecanico --> UC01
-Mecanico --> UC06
-Mecanico --> UC07
-Mecanico --> UC08
-
-Gerente --> UC01
-Gerente --> UC09
-Gerente --> UC10
-Gerente --> UC11
-Gerente --> UC12
-
-UC05 ..> UC03 : <<precondition>>
-UC09 ..> UC07 : <<requires>>
+A --> U1
+A --> U2
+A --> U4
+A --> U5
+A --> U13
+A --> U9
+A --> U10
+A --> Q
+M --> U1
+M --> U13
+M --> U6
+M --> U9
+M --> U10
+M --> Q
+G --> U1
+G --> U2
+G --> U4
+G --> U5
+G --> U13
+G --> U6
+G --> U9
+G --> U10
+G --> Q
+G --> U14
+G --> U11
+G --> U17
+G --> U19
+G --> U20
+G --> U21
+note right of U6
+  Mecânico: OS sem responsável
+  ou atribuída a ele.
+end note
 @enduml

@@ -1,7 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { OrdemServico } from "../src/domain/OrdemServico.js";
-import { StatusOS } from "../src/config/constants.js";
+import { OrdemServico } from "../domain/OrdemServico.js";
+import { StatusOS } from "../config/constants.js";
 
 test("CT05 - nova OS inicia ABERTA", () => {
   const os = new OrdemServico({

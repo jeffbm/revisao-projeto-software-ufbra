@@ -13,7 +13,8 @@ export class AutenticacaoService {
   }
 
   login(login, senha) {
-    const usuario = this.usuarioRepository.buscarPorLogin(login);
+    if (typeof login !== "string" || typeof senha !== "string" || senha.length > 256) throw new Error("Credenciais inválidas.");
+    const usuario = this.usuarioRepository.buscarPorLogin(login.trim());
 
     if (!usuario || !usuario.ativo || !verifyPassword(senha, usuario.senhaHash)) {
       throw new Error("Credenciais inválidas.");
@@ -23,6 +24,7 @@ export class AutenticacaoService {
 
     const sessao = {
       token,
+      expiraEm: Date.now() + 8 * 60 * 60 * 1000,
       usuario: {
         id: usuario.id,
         login: usuario.login,
@@ -35,7 +37,15 @@ export class AutenticacaoService {
   }
 
   obterSessao(token) {
-    return this.sessions.get(token) || null;
+    const sessao = this.sessions.get(token);
+    if (!sessao || sessao.expiraEm <= Date.now()) { this.sessions.delete(token); return null; }
+    const atual = this.usuarioRepository.buscarPorLogin(sessao.usuario.login);
+    if (!atual?.ativo || atual.perfil !== sessao.usuario.perfil) { this.sessions.delete(token); return null; }
+    return sessao;
+  }
+
+  revogarUsuario(id) {
+    for (const [token, sessao] of this.sessions) if (sessao.usuario.id === id) this.sessions.delete(token);
   }
 
   logout(token) {

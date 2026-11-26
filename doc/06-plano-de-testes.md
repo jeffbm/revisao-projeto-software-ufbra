@@ -231,3 +231,7 @@ Cada execução deve registrar, quando aplicável:
 | Prototipação | validação precoce de entendimento + testes formais do produto final |
 | Incremental | testes em cada incremento + regressão acumulada |
 | Espiral | testes orientados aos riscos de cada volta |
+
+## 10. Execução V2 e critérios de saída
+
+Sete testes originais e dez testes de integração SQLite foram executados com sucesso em Node 22.16.0; um teste HTTP (CT31) não foi executado porque o Express não pôde ser baixado neste ambiente. Veja `testes/resultado-v2.txt`. Na VM, `npm install` e `npm test` devem executar todos os 18 testes. Scripts de demo/backup foram testados em arquivo separado. Cenários AT01–AT20 exigem aceite, rede e carga reais conforme [11](11-aceitacao-e-entrega.md). Não há evidência suficiente para afirmar desempenho, segurança ou usabilidade de produção.

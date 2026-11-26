@@ -20,3 +20,5 @@ Uma forma simples de visualizar é instalar uma extensão compatível com PlantU
 ## Observação didática
 
 PlantUML é a ferramenta de representação. Os elementos utilizados nos arquivos correspondem a diagramas UML: atores, casos de uso, classes, associações, sequências, estados, atividades e componentes.
+
+V2: casos de uso, componentes, classes e estados atualizados; `sequencia-utilizar-peca.puml` mostra a transação de estoque e auditoria.

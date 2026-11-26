@@ -92,3 +92,21 @@ consulta de agenda, cliente e OS em massa representativa do MVP.
 
 **Esperado:**
 tempo <= 2 s nas telas principais, em condições normais definidas no ambiente de teste.
+
+## Novos testes automatizados da V2
+
+| ID | Cenário | Resultado esperado |
+|---|---|---|
+| CT21 | Cadastro → agenda → atribuição → diagnóstico → itens → fechar → histórico/painel | Fluxo consistente e auditado |
+| CT22 | RBAC, mecânico diferente e inativação | Acesso indevido rejeitado e sessão revogada |
+| CT23 | Estoque insuficiente e falha de auditoria simulada | Rollback integral |
+| CT24 | Fechamento, reabertura/cancelamento e estado terminal | Regras e justificativas respeitadas |
+| CT25 | Devolução/remover item | Total e estoque consistentes |
+| CT26 | Placa única, cliente ativo, edição | Integridade cadastral |
+| CT27 | Agenda: conflito, data inválida, reagendamento, conversão repetida | Operações inválidas rejeitadas |
+| CT28 | Estoque administrativo, preço histórico | Saldo não negativo, preço preservado |
+| CT29 | Valores inválidos, senhas, logout | Dados rejeitados e senha protegida |
+| CT30 | Banco legado e reinício | Migração preserva registros, persistência correta |
+| CT31 | API HTTP/Express, login, RBAC e OS | Status HTTP e fluxo corretos (pendente no ambiente de construção) |
+
+Os dez primeiros foram executados em SQLite real isolado (memória ou arquivo temporário). O teste HTTP será executado com Express disponível. O roteiro AT01–AT20 está em [11](../11-aceitacao-e-entrega.md).

@@ -1,104 +1,29 @@
 import express from "express";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-
-import { createDatabase } from "./database/db.js";
-import { createSchema } from "./database/schema.js";
-import { seed } from "./database/seed.js";
-
-import { ClienteRepository } from "./repositories/ClienteRepository.js";
-import { VeiculoRepository } from "./repositories/VeiculoRepository.js";
-import { UsuarioRepository } from "./repositories/UsuarioRepository.js";
-import { AgendamentoRepository } from "./repositories/AgendamentoRepository.js";
-import { PecaRepository } from "./repositories/PecaRepository.js";
-import { OSRepository } from "./repositories/OSRepository.js";
-import { AuditoriaRepository } from "./repositories/AuditoriaRepository.js";
-
-import { AuditoriaService } from "./services/AuditoriaService.js";
-import { AutenticacaoService } from "./services/AutenticacaoService.js";
-import { ClienteService } from "./services/ClienteService.js";
-import { VeiculoService } from "./services/VeiculoService.js";
-import { AgendaService } from "./services/AgendaService.js";
-import { EstoqueService } from "./services/EstoqueService.js";
-import { OSService } from "./services/OSService.js";
-
+import { createOficina } from "./oficina.js";
 import { authMiddleware } from "./middleware/auth.js";
 import { authRoutes } from "./routes/authRoutes.js";
 import { apiRoutes } from "./routes/apiRoutes.js";
 
-/**
- * Composition Root.
- *
- * Aqui os objetos são criados e conectados.
- * Isso deixa as classes menores e facilita testes.
- */
-export function createApp({ databaseFile = "./data/oficina-prime.db" } = {}) {
-  const db = createDatabase(databaseFile);
-  createSchema(db);
-  seed(db);
-
-  // Repositórios
-  const clienteRepository = new ClienteRepository(db);
-  const veiculoRepository = new VeiculoRepository(db);
-  const usuarioRepository = new UsuarioRepository(db);
-  const agendamentoRepository = new AgendamentoRepository(db);
-  const pecaRepository = new PecaRepository(db);
-  const osRepository = new OSRepository(db);
-  const auditoriaRepository = new AuditoriaRepository(db);
-
-  // Serviços
-  const auditoriaService = new AuditoriaService(auditoriaRepository);
-  const autenticacaoService = new AutenticacaoService(usuarioRepository);
-  const clienteService = new ClienteService(clienteRepository, auditoriaService);
-  const veiculoService = new VeiculoService(
-    veiculoRepository,
-    clienteRepository,
-    auditoriaService
-  );
-  const agendaService = new AgendaService(
-    agendamentoRepository,
-    veiculoRepository,
-    auditoriaService
-  );
-  const osService = new OSService(
-    osRepository,
-    veiculoRepository,
-    auditoriaService
-  );
-  const estoqueService = new EstoqueService(
-    db,
-    pecaRepository,
-    osRepository,
-    auditoriaService
-  );
-
+export function createApp(options = {}) {
+  const { oficina, autenticacaoService, db } = createOficina(options);
   const app = express();
-  app.use(express.json());
-
-  // Rotas públicas de autenticação.
-  app.use("/api/auth", authRoutes(autenticacaoService));
-
-  // API protegida.
-  app.use(
-    "/api",
-    authMiddleware(autenticacaoService),
-    apiRoutes({
-      clienteService,
-      veiculoService,
-      agendaService,
-      osService,
-      estoqueService,
-      pecaRepository
-    })
-  );
-
-  // Interface estática simples.
-  const __dirname = path.dirname(fileURLToPath(import.meta.url));
-  app.use(express.static(path.join(__dirname, "public")));
-
-  app.get("/health", (_req, res) => {
-    res.json({ status: "ok", projeto: "Oficina Prime" });
+  app.disable("x-powered-by");
+  app.use((req,res,next)=>{
+    res.setHeader("X-Content-Type-Options","nosniff");
+    res.setHeader("X-Frame-Options","DENY");
+    res.setHeader("Referrer-Policy","no-referrer");
+    res.setHeader("Content-Security-Policy","default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; frame-ancestors 'none'; base-uri 'none'; form-action 'self'");
+    if(req.path.startsWith('/api')) res.setHeader('Cache-Control','no-store');
+    next();
   });
-
-  return { app, db };
+  app.use(express.json({limit:'64kb'}));
+  app.get('/health', (_req,res)=>res.json({status:'ok',projeto:'Oficina Prime',versao:'2.0.0'}));
+  app.use('/api/auth',authRoutes(autenticacaoService));
+  app.use('/api',authMiddleware(autenticacaoService),apiRoutes(oficina));
+  app.use('/api',(_req,res)=>res.status(404).json({erro:'Rota não encontrada.'}));
+  app.use(express.static(path.join(path.dirname(fileURLToPath(import.meta.url)), 'public'),{etag:true}));
+  app.use((err,_req,res,_next)=>res.status(err.status===413?413:400).json({erro:err.status===413?'Requisição muito grande.':'Requisição inválida.'}));
+  return { app, db, oficina, autenticacaoService };
 }

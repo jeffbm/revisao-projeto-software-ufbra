@@ -21,7 +21,7 @@ export class OrdemServico {
   }) {
     if (!veiculoId) throw new Error("OS exige veículo cadastrado."); // RN01
     if (!relato?.trim()) throw new Error("Relato inicial é obrigatório.");
-    if (Number(quilometragem) < 0) throw new Error("Quilometragem inválida.");
+    if (!Number.isSafeInteger(Number(quilometragem)) || Number(quilometragem) < 0) throw new Error("Quilometragem inválida.");
 
     this.numero = numero;
     this.veiculoId = Number(veiculoId);
@@ -48,7 +48,7 @@ export class OrdemServico {
     if (!texto?.trim()) throw new Error("Diagnóstico é obrigatório.");
 
     this.diagnostico = texto.trim();
-    this.status = StatusOS.EM_DIAGNOSTICO;
+    if (this.status !== StatusOS.EM_EXECUCAO) this.status = StatusOS.EM_DIAGNOSTICO;
   }
 
   adicionarServico({ descricao, quantidade, valorUnitario }) {
@@ -58,7 +58,7 @@ export class OrdemServico {
     const valor = Number(valorUnitario);
 
     if (!descricao?.trim()) throw new Error("Descrição do serviço é obrigatória.");
-    if (qtd <= 0 || valor < 0) throw new Error("Quantidade/valor inválidos.");
+    if (!Number.isFinite(qtd) || !Number.isFinite(valor) || qtd <= 0 || valor < 0) throw new Error("Quantidade/valor inválidos.");
 
     this.servicos.push({ descricao: descricao.trim(), quantidade: qtd, valorUnitario: valor });
     this.status = StatusOS.EM_EXECUCAO;
@@ -70,7 +70,7 @@ export class OrdemServico {
     const qtd = Number(quantidade);
     const valor = Number(valorUnitario);
 
-    if (qtd <= 0 || valor < 0) throw new Error("Quantidade/valor inválidos.");
+    if (!Number.isFinite(qtd) || !Number.isFinite(valor) || qtd <= 0 || valor < 0) throw new Error("Quantidade/valor inválidos.");
 
     this.pecas.push({ codigo, descricao, quantidade: qtd, valorUnitario: valor });
   }
@@ -114,6 +114,7 @@ export class OrdemServico {
       throw new Error("OS fechada deve ser reaberta antes do cancelamento.");
     }
 
+    this.assertEditavel();
     this.status = StatusOS.CANCELADA;
   }
 }

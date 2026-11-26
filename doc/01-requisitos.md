@@ -56,8 +56,8 @@
 | RN04 | Peça utilizada deve reduzir o estoque na mesma operação lógica. |
 | RN05 | Não é permitido saldo negativo de peça. |
 | RN06 | O fechamento exige pelo menos um serviço executado. |
-| RN07 | Apenas gerente pode reabrir ou cancelar OS fechada. |
-| RN08 | A reabertura exige justificativa. |
+| RN07 | Apenas gerente pode reabrir OS fechada ou cancelar OS em andamento; para cancelar uma fechada, primeiro reabrir. |
+| RN08 | A reabertura exige justificativa (na V2, cancelamento também). |
 | RN09 | Toda alteração relevante deve registrar usuário e data/hora. |
 | RN10 | O veículo pertence a um cliente ativo. |
 | RN11 | Um agendamento deve possuir data/hora, veículo e motivo. |
@@ -91,3 +91,7 @@ O sistema deverá manter, no mínimo:
 6. Operação de fechamento deve preservar consistência entre OS e estoque.
 7. Usuário sem permissão não executa ação administrativa.
 8. Histórico deve refletir as OS do veículo consultado.
+
+## 7. Incremento funcional 2.0
+
+Os RF15–RF25 e RN13–RN24, incluindo atribuição, gestão gerencial e permissões detalhadas, constam da [especificação de incremento](08-incremento-v2.md). RNF04: backup manual implementado e verificado; agendamento diário ainda pendente. RNF03 e RNF06: medição de desempenho e aceitação em sala pendentes.

@@ -10,5 +10,6 @@
     "repositories",
     "database"
   ],
-  "file_count": 39
+  "file_count": 49,
+  "version": "2.0.0"
 }

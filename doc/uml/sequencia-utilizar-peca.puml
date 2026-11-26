@@ -1,0 +1,35 @@
+@startuml
+actor "Mecânico" as M
+participant "Interface" as UI
+participant "API / Auth" as API
+participant OficinaService as O
+participant EstoqueService as E
+participant Peca as P
+participant "Repositórios / SQLite" as R
+participant AuditoriaService as A
+M -> UI : selecionar peça e quantidade
+UI -> API : POST /api/os/:numero/pecas
+API -> O : editarOS(usuario, numero, pecas, dados)
+O -> O : validar perfil, estado e responsável
+O -> R : BEGIN IMMEDIATE
+O -> E : registrarPecaNaOS
+E -> R : buscar OS e peça; SAVEPOINT
+E -> P : baixar(quantidade)
+alt saldo suficiente
+  E -> R : inserir item e atualizar estoque
+  E -> A : registrar consumo
+  A -> R : inserir auditoria
+  E -> R : RELEASE SAVEPOINT
+  E --> O : OS atualizada
+  O -> R : recalcular e persistir total
+  O -> R : COMMIT
+  O --> API : detalhe da OS
+  API --> UI : 200 JSON
+else saldo insuficiente ou falha de escrita
+  E -> R : ROLLBACK TO SAVEPOINT
+  E --> O : erro
+  O -> R : ROLLBACK
+  O --> API : erro
+  API --> UI : falha sem alterar saldo/OS
+end
+@enduml

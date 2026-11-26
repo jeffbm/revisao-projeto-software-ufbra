@@ -57,3 +57,7 @@ QUANDO informa justificativa e confirma
 ENTÃO a OS pode ser reaberta
 E a justificativa deve ficar registrada em auditoria.
 ```
+
+## Incremento 2.0
+
+Além dos critérios originais, os RF15–RF25 devem ser validados conforme [roteiro de aceitação](../11-aceitacao-e-entrega.md). A entrega didática não equivale a homologação de produção.

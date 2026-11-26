@@ -14,7 +14,7 @@ export class Peca {
   baixar(quantidade) {
     const qtd = Number(quantidade);
 
-    if (qtd <= 0) {
+    if (!Number.isFinite(qtd) || qtd <= 0) {
       throw new Error("Quantidade deve ser maior que zero.");
     }
 
@@ -27,7 +27,7 @@ export class Peca {
 
   repor(quantidade) {
     const qtd = Number(quantidade);
-    if (qtd <= 0) throw new Error("Quantidade deve ser maior que zero.");
+    if (!Number.isFinite(qtd) || qtd <= 0) throw new Error("Quantidade deve ser maior que zero.");
     this.estoque += qtd;
   }
 }
